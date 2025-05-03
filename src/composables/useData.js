@@ -35,6 +35,7 @@ export default function (initialAdapter, initialPath) {
     dirname
       .replace(adapter.value + "://", "")
       .split("/")
+      .filter(Boolean)
       .forEach(function (item) {
         items.push(item);
         if (items.join("/") !== "") {
@@ -57,8 +58,6 @@ export default function (initialAdapter, initialPath) {
     hiddenBreadcrumbs.value = hiddenLinks;
     breadcrumbs.value = linksToDisplay;
     console.log("Breadcrumbs:", breadcrumbs.value);
-    console.log("Hidden Breadcrumbs:", hiddenBreadcrumbs.value);
-    console.log("Breadcrumb Items:", breadcrumbItems.value);
   }
 
   function limitBreadcrumbItems(count) {

@@ -1646,7 +1646,7 @@ function Fl(t, e) {
   });
   function p() {
     let I = [], D = [], C = o.value ?? n.value + "://";
-    C.length === 0 && (s.value = []), C.replace(n.value + "://", "").split("/").forEach(function(j) {
+    C.length === 0 && (s.value = []), C.replace(n.value + "://", "").split("/").filter(Boolean).forEach(function(j) {
       I.push(j), I.join("/") !== "" && D.push({
         basename: j,
         name: j,
@@ -1658,7 +1658,7 @@ function Fl(t, e) {
       D,
       a.value
     );
-    c.value = F, s.value = V, console.log("Breadcrumbs:", s.value), console.log("Hidden Breadcrumbs:", c.value), console.log("Breadcrumb Items:", i.value);
+    c.value = F, s.value = V, console.log("Breadcrumbs:", s.value);
   }
   function m(I) {
     a.value = I, p();
