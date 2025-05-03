@@ -2571,7 +2571,7 @@ const Bo = { render: pi }, hi = { class: "vuefinder__new-folder-modal__content" 
         onSuccess: () => {
           e.emitter.emit("vf-toast-push", {
             label: o("%s is created.", s.value)
-          }), exitSearchMode(), e.emitter.emit("vf-fetch", {
+          }), e.emitter.emit("vf-fetch", {
             params: {
               q: "index",
               adapter: e.fs.adapter,
