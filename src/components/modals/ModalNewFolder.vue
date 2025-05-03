@@ -66,7 +66,6 @@ const createFolder = () => {
         app.emitter.emit("vf-toast-push", {
           label: t("%s is created.", name.value),
         });
-        // exitSearchMode();
 
         app.emitter.emit("vf-fetch", {
           params: {
