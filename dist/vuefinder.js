@@ -1654,8 +1654,11 @@ function Fl(t, e) {
         type: "dir"
       });
     }), i.value = D;
-    const [V, F] = h(D, a.value);
-    c.value = F, s.value = V;
+    const [V, F] = h(
+      D,
+      a.value
+    );
+    c.value = F, s.value = V, console.log("Breadcrumbs:", s.value), console.log("Hidden Breadcrumbs:", c.value), console.log("Breadcrumb Items:", i.value);
   }
   function m(I) {
     a.value = I, p();
