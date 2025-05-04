@@ -41,8 +41,8 @@ export default function (initialAdapter, initialPath) {
         if (items.join("/") !== "") {
           links.push({
             basename: item,
-            name: item + "/",
-            path: adapter.value + "://" + items.join("/"),
+            name: item,
+            path: adapter.value + "://" + items.join("/") + "/",
             type: "dir",
           });
         }
