@@ -1649,8 +1649,8 @@ function Fl(t, e) {
     C.length === 0 && (s.value = []), C.replace(n.value + "://", "").split("/").filter(Boolean).forEach(function(j) {
       I.push(j), I.join("/") !== "" && D.push({
         basename: j,
-        name: j + "/",
-        path: n.value + "://" + I.join("/"),
+        name: j,
+        path: n.value + "://" + I.join("/") + "/",
         type: "dir"
       });
     }), i.value = D;
