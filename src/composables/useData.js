@@ -57,7 +57,6 @@ export default function (initialAdapter, initialPath) {
 
     hiddenBreadcrumbs.value = hiddenLinks;
     breadcrumbs.value = linksToDisplay;
-    console.log("Breadcrumbs:", breadcrumbs.value);
   }
 
   function limitBreadcrumbItems(count) {
