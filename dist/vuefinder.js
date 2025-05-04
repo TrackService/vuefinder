@@ -5640,23 +5640,32 @@ const Te = {
     let d;
     s.emitter.on("vf-fetch-abort", () => {
       d.abort(), s.fs.loading = !1;
-    }), s.emitter.on("vf-fetch", ({ params: f, body: p = null, onSuccess: m = null, onError: h = null, noCloseModal: w = !1 }) => {
-      ["index", "search"].includes(f.q) && (d && d.abort(), s.fs.loading = !0), d = new AbortController();
-      const x = d.signal;
-      s.requester.send({
-        url: "",
-        method: f.m || "get",
+    }), s.emitter.on(
+      "vf-fetch",
+      ({
         params: f,
-        body: p,
-        abortSignal: x
-      }).then((M) => {
-        s.fs.adapter = M.adapter, s.persist && (s.fs.path = M.dirname, i("path", s.fs.path)), w || s.modal.close(), l(M), m && m(M);
-      }).catch((M) => {
-        console.error(M), h && h(M);
-      }).finally(() => {
-        ["index", "search"].includes(f.q) && (s.fs.loading = !1);
-      });
-    });
+        body: p = null,
+        onSuccess: m = null,
+        onError: h = null,
+        noCloseModal: w = !1
+      }) => {
+        ["index", "search"].includes(f.q) && (d && d.abort(), s.fs.loading = !0), d = new AbortController();
+        const x = d.signal;
+        s.requester.send({
+          url: "",
+          method: f.m || "get",
+          params: f,
+          body: p,
+          abortSignal: x
+        }).then((M) => {
+          s.fs.adapter = M.adapter, s.persist && (s.fs.path = M.dirname, i("path", s.fs.path)), w || s.modal.close(), l(M), m && m(M);
+        }).catch((M) => {
+          console.error(M), h && h(M);
+        }).finally(() => {
+          ["index", "search"].includes(f.q) && (s.fs.loading = !1);
+        });
+      }
+    );
     function _(f) {
       let p = {};
       f && f.includes("://") && (p = {
@@ -5665,18 +5674,27 @@ const Te = {
       }), s.emitter.emit("vf-fetch", {
         params: { q: "index", adapter: s.fs.adapter, ...p },
         onError: o.onError ?? ((m) => {
-          m.message && s.emitter.emit("vf-toast-push", { label: m.message, type: "error" });
+          m.message && s.emitter.emit("vf-toast-push", {
+            label: m.message,
+            type: "error"
+          });
         })
       });
     }
     return Ce(() => {
-      _(s.fs.path), Oe(() => o.path, (f) => {
-        _(f);
-      }), u.onSelect((f) => {
+      _(s.fs.path), Oe(
+        () => o.path,
+        (f) => {
+          _(f);
+        }
+      ), u.onSelect((f) => {
         n("select", f);
-      }), Oe(() => s.fs.data.dirname, (f) => {
-        n("update:path", f);
-      });
+      }), Oe(
+        () => s.fs.data.dirname,
+        (f) => {
+          n("update:path", f);
+        }
+      );
     }), (f, p) => (v(), g("div", {
       class: "vuefinder",
       ref_key: "root",
@@ -5687,8 +5705,13 @@ const Te = {
         class: le(r(s).theme.actualValue)
       }, [
         a("div", {
-          class: le([r(s).fullScreen ? "vuefinder__main__fixed" : "vuefinder__main__relative", "vuefinder__main__container"]),
-          style: fn(r(s).fullScreen ? "" : "max-height: " + t.maxHeight),
+          class: le([
+            r(s).fullScreen ? "vuefinder__main__fixed" : "vuefinder__main__relative",
+            "vuefinder__main__container"
+          ]),
+          style: fn(
+            r(s).fullScreen ? "" : "max-height: " + t.maxHeight + ";height: " + t.maxHeight
+          ),
           onMousedown: p[0] || (p[0] = (m) => r(s).emitter.emit("vf-contextmenu-hide")),
           onTouchstart: p[1] || (p[1] = (m) => r(s).emitter.emit("vf-contextmenu-hide"))
         }, [
