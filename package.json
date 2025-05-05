@@ -11,7 +11,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare": "npm run build"
   },
   "homepage": "https://github.com/n1crack/vuefinder#readme",
   "keywords": [
