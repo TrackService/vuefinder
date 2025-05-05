@@ -4054,9 +4054,7 @@ const kd = { render: yd }, xd = { class: "vuefinder__breadcrumb__container" }, S
       ])
     ]));
   }
-}, Go = (t, e = null) => new Date(t * 1e3).toLocaleString(
-  e ?? navigator.language ?? "ru-RU"
-), Rd = ["onClick"], Bd = {
+}, Go = (t, e = null) => new Date(t * 1e3).toLocaleString(e ?? "ru-RU"), Rd = ["onClick"], Bd = {
   __name: "Toast",
   setup(t) {
     const e = re("ServiceContainer"), { getStore: n } = e.storage, o = O(n("full-screen", !1)), s = O([]), i = (l) => l === "error" ? "text-red-400 border-red-400 dark:text-red-300 dark:border-red-300" : "text-lime-600 border-lime-600 dark:text-lime-300 dark:border-lime-1300", c = (l) => {
