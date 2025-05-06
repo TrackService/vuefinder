@@ -23,7 +23,7 @@
           <StorageSVG />
         </span>
         <span class="vuefinder__status-bar__space-text">
-          Used {{ app.fs.data.used_space }}Mb out of {{ app.fs.data.total_space }}Mb ({{ app.fs.data.used / app.fs.data.total * 100 | number(2) }}%)
+          Used {{ app.fs.data.used_space }}Mb out of {{ app.fs.data.total_space }}Mb ({{ ((app.fs.data.used / app.fs.data.total) * 100).toFixed(2) }}%)
         </span>
       </div>
     </div>
