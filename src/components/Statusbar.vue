@@ -17,6 +17,16 @@
         <span class="vuefinder__status-bar__selected-count">{{ app.dragSelect.getCount() > 0 ? t('%s item(s) selected.', app.dragSelect.getCount()) : '' }}</span>
       </div>
     </div> -->
+    <div class="vuefinder__status-bar__space">
+      <div class="vuefinder__status-bar__space-container">
+        <span class="vuefinder__status-bar__space-icon">
+          <StorageSVG />
+        </span>
+        <span class="vuefinder__status-bar__space-text">
+          Used {{ app.fs.data.used_space }}Mb out of {{ app.fs.data.total_space }}Mb ({{ app.fs.data.used / app.fs.data.total * 100 | number(2) }}%)
+        </span>
+      </div>
+    </div>
     <div class="vuefinder__status-bar__actions">
       <button
         class="vf-btn py-0 vf-btn-primary"
