@@ -81,13 +81,22 @@ const isSelectButtonActive = computed(() => {
 });
 
 const formatedUsedSpace = computed(() => {
-  return app.fs.data.used_space.toFixed(2);
+  const value = app.fs?.data?.used_space;
+  return typeof value === 'number' ? value.toFixed(2) : '0.00';
 });
 const formatedTotalSpace = computed(() => {
-  return app.fs.data.total_space.toFixed(2);
+  const value = app.fs?.data?.total_space;
+  return typeof value === 'number' ? value.toFixed(2) : '0.00';
 });
-const formatedUsedSpacePercentage = computed(() => {
-  return ((app.fs.data.used_space / app.fs.data.total_space) * 100).toFixed(2);
+const formattedUsedSpacePercentage = computed(() => {
+  const used = app.fs?.data?.used_space;
+  const total = app.fs?.data?.total_space;
+
+  if (typeof used === 'number' && typeof total === 'number' && total !== 0) {
+    return ((used / total) * 100).toFixed(2);
+  } else {
+    return '0.00';
+  }
 });
 const formatedUsedSpaceText = computed(() => {
   return `Used ${formatedUsedSpace.value}Mb out of ${formatedTotalSpace.value}Mb (${formatedUsedSpacePercentage.value}%)`;
