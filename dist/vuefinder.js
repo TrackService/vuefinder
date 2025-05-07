@@ -4970,7 +4970,7 @@ const wf = { render: bf }, yf = { class: "vuefinder__status-bar__wrapper" }, kf 
           a("span", Sf, [
             j(r(Yo))
           ]),
-          a("span", $f, " Used " + b(r(e).fs.data.used_space) + "Mb out of " + b(r(e).fs.data.total_space) + "Mb (" + b((r(e).fs.data.used / r(e).fs.data.total * 100).toFixed(2)) + "%) ", 1)
+          a("span", $f, " Used " + b(r(e).fs.data.used_space.toFixed(2)) + "Mb out of " + b(r(e).fs.data.total_space.toFixed(2)) + "Mb (" + b((r(e).fs.data.used_space / r(e).fs.data.total_space * 100).toFixed(2)) + "%) ", 1)
         ])
       ]),
       a("div", Cf, [
