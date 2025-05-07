@@ -88,7 +88,7 @@ const formatedTotalSpace = computed(() => {
   const value = app.fs?.data?.total_space;
   return typeof value === 'number' ? value.toFixed(2) : '0.00';
 });
-const formattedUsedSpacePercentage = computed(() => {
+const formatedUsedSpacePercentage = computed(() => {
   const used = app.fs?.data?.used_space;
   const total = app.fs?.data?.total_space;
 
