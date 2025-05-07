@@ -23,7 +23,7 @@
           <StorageSVG />
         </span>
         <span class="vuefinder__status-bar__space-text">
-          Used {{ app.fs.data.used_space.toFixed(2) }}Mb out of {{ app.fs.data.total_space.toFixed(2) }}Mb ({{ ((app.fs.data.used_space / app.fs.data.total_space) * 100).toFixed(2) }}%)
+          {{ formatedUsedSpaceText }}
         </span>
       </div>
     </div>
@@ -80,7 +80,16 @@ const isSelectButtonActive = computed(() => {
   return app.selectButton.active && selectionAllowed;
 });
 
-function formatToDouble(value) {
-  return value.toFixed(2);
-}
+const formatedUsedSpace = computed(() => {
+  return app.fs.data.used_space.toFixed(2);
+});
+const formatedTotalSpace = computed(() => {
+  return app.fs.data.total_space.toFixed(2);
+});
+const formatedUsedSpacePercentage = computed(() => {
+  return ((app.fs.data.used_space / app.fs.data.total_space) * 100).toFixed(2);
+});
+const formatedUsedSpaceText = computed(() => {
+  return `Used ${formatedUsedSpace.value}Mb out of ${formatedTotalSpace.value}Mb (${formatedUsedSpacePercentage.value}%)`;
+});
 </script>
