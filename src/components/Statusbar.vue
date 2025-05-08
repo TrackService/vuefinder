@@ -28,7 +28,7 @@
       </div>
     </div>
     <div class="vuefinder__status-bar__actions">
-      <button
+      <!-- <button
         class="vf-btn py-0 vf-btn-primary"
         :class="{ disabled: !isSelectButtonActive }"
         :disabled="!isSelectButtonActive"
@@ -43,7 +43,7 @@
         @click="app.modal.open(ModalAbout)"
       >
         <AboutSVG />
-      </span>
+      </span> -->
     </div>
   </div>
 </template>

@@ -10,14 +10,14 @@
         <NewFolderSVG />
       </div>
 
-      <div
+      <!-- <div
         class="mx-1.5"
         :title="t('New File')"
         v-if="app.features.includes(FEATURES.NEW_FILE)"
         @click="app.modal.open(ModalNewFile, {items: ds.getSelected()})"
       >
         <NewFileSVG />
-      </div>
+      </div> -->
 
       <div
         class="mx-1.5"
