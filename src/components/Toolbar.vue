@@ -10,6 +10,15 @@
         <NewFolderSVG />
       </div>
 
+      <div
+        class="mx-1.5"
+        :title="t('Upload')"
+        v-if="app.features.includes(FEATURES.UPLOAD)"
+        @click="app.modal.open(ModalUpload, {items: ds.getSelected()})"
+      >
+        <UploadSVG />
+      </div>
+
       <!-- <div
         class="mx-1.5"
         :title="t('New File')"
@@ -35,15 +44,6 @@
         @click="(!ds.getCount()) || app.modal.open(ModalDelete, {items: ds.getSelected()})"
       >
         <DeleteSVG :class="(ds.getCount()) ? 'vf-toolbar-icon' : 'vf-toolbar-icon-disabled'" />
-      </div>
-
-      <div
-        class="mx-1.5"
-        :title="t('Upload')"
-        v-if="app.features.includes(FEATURES.UPLOAD)"
-        @click="app.modal.open(ModalUpload, {items: ds.getSelected()})"
-      >
-        <UploadSVG />
       </div>
 
       <div

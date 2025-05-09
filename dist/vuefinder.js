@@ -3366,33 +3366,33 @@ const mc = { render: _c }, pc = { class: "vuefinder__toolbar" }, hc = {
         }, [
           G(r(Ho))
         ], 8, gc)) : z("", !0),
-        r(e).features.includes(r(ve).RENAME) ? (_(), g("div", {
+        r(e).features.includes(r(ve).UPLOAD) ? (_(), g("div", {
           key: 1,
           class: "mx-1.5",
+          title: r(o)("Upload"),
+          onClick: f[1] || (f[1] = (v) => r(e).modal.open(Ii, { items: r(s).getSelected() }))
+        }, [
+          G(r(Bo))
+        ], 8, bc)) : z("", !0),
+        r(e).features.includes(r(ve).RENAME) ? (_(), g("div", {
+          key: 2,
+          class: "mx-1.5",
           title: r(o)("Rename"),
-          onClick: f[1] || (f[1] = (v) => r(s).getCount() !== 1 || r(e).modal.open(vs, { items: r(s).getSelected() }))
+          onClick: f[2] || (f[2] = (v) => r(s).getCount() !== 1 || r(e).modal.open(vs, { items: r(s).getSelected() }))
         }, [
           G(r(Io), {
             class: ce(r(s).getCount() === 1 ? "vf-toolbar-icon" : "vf-toolbar-icon-disabled")
           }, null, 8, ["class"])
-        ], 8, bc)) : z("", !0),
+        ], 8, wc)) : z("", !0),
         r(e).features.includes(r(ve).DELETE) ? (_(), g("div", {
-          key: 2,
+          key: 3,
           class: "mx-1.5",
           title: r(o)("Delete"),
-          onClick: f[2] || (f[2] = (v) => !r(s).getCount() || r(e).modal.open(fs, { items: r(s).getSelected() }))
+          onClick: f[3] || (f[3] = (v) => !r(s).getCount() || r(e).modal.open(fs, { items: r(s).getSelected() }))
         }, [
           G(r(Fo), {
             class: ce(r(s).getCount() ? "vf-toolbar-icon" : "vf-toolbar-icon-disabled")
           }, null, 8, ["class"])
-        ], 8, wc)) : z("", !0),
-        r(e).features.includes(r(ve).UPLOAD) ? (_(), g("div", {
-          key: 3,
-          class: "mx-1.5",
-          title: r(o)("Upload"),
-          onClick: f[3] || (f[3] = (v) => r(e).modal.open(Ii, { items: r(s).getSelected() }))
-        }, [
-          G(r(Bo))
         ], 8, yc)) : z("", !0),
         r(e).features.includes(r(ve).UNARCHIVE) && r(s).getCount() === 1 && r(s).getSelected()[0].mime_type === "application/zip" ? (_(), g("div", {
           key: 4,
