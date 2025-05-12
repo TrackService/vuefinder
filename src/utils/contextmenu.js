@@ -190,7 +190,13 @@ const templateMap = {
     key: FEATURES.DOWNLOAD,
     link: (app, selectedItems) => app.requester.getDownloadUrl(app.fs.adapter, selectedItems.value[0]),
     title: ({t}) => t('Download'),
-    action: () => {},
+    // action: () => {},
+    action: (app, selectedItems) => {
+      const item = selectedItems.value[0];
+      if (item?.type === 'dir') {
+        app.emitter.emit('vf-download', item);
+      }
+    },
   },
   archive: {
     key: FEATURES.ARCHIVE,

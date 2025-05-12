@@ -5371,7 +5371,10 @@ const Te = {
     key: ve.DOWNLOAD,
     link: (t, e) => t.requester.getDownloadUrl(t.fs.adapter, e.value[0]),
     title: ({ t }) => t("Download"),
-    action: () => {
+    // action: () => {},
+    action: (t, e) => {
+      const n = e.value[0];
+      (n == null ? void 0 : n.type) === "dir" && t.emitter.emit("vf-download", n);
     }
   },
   archive: {
