@@ -5422,9 +5422,7 @@ const Te = {
       return ((n = e.target) == null ? void 0 : n.type) !== "dir";
     }
   }),
-  ...Re([Te.download], {
-    target: "many"
-  }),
+  ...Re([Te.download], {}),
   ...Re([Te.rename], { numItems: "one" }),
   ...Re([Te.unarchive], {
     mimeType: "application/zip"

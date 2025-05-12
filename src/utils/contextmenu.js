@@ -234,9 +234,7 @@ export const menuItems = [
   ...itemBundle([templateMap.preview], {
     show: (app, ctx) => ctx.target?.type !== 'dir'
   }),
-  ...itemBundle([templateMap.download], {
-    target: 'many'
-  }),
+  ...itemBundle([templateMap.download], {}),
   ...itemBundle([templateMap.rename], {numItems: 'one',}),
   ...itemBundle([templateMap.unarchive], {
     mimeType: 'application/zip',
