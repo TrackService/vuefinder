@@ -5270,11 +5270,11 @@ const $f = { class: "vuefinder__folder-loader-indicator" }, Cf = {
 };
 class Kf {
   /**
-   * 
-   * @param {Item['title']} title 
-   * @param {Item['action']} action 
+   *
+   * @param {Item['title']} title
+   * @param {Item['action']} action
    * @param {Item['link']} link
-   * @param {Partial<SimpleItemOptions>} options 
+   * @param {Partial<SimpleItemOptions>} options
    */
   constructor(e, s, r, o) {
     this.title = e, this.action = s, this.link = r, this.options = Object.assign(
@@ -5322,7 +5322,9 @@ const Ae = {
   unpinFolder: {
     title: ({ t: n }) => n("Unpin Folder"),
     action: (n, e) => {
-      n.pinnedFolders = n.pinnedFolders.filter((s) => !e.value.find((r) => r.path === s.path)), n.storage.setStore("pinned-folders", n.pinnedFolders);
+      n.pinnedFolders = n.pinnedFolders.filter(
+        (s) => !e.value.find((r) => r.path === s.path)
+      ), n.storage.setStore("pinned-folders", n.pinnedFolders);
     }
   },
   delete: {
@@ -5335,13 +5337,22 @@ const Ae = {
   refresh: {
     title: ({ t: n }) => n("Refresh"),
     action: (n) => {
-      n.emitter.emit("vf-fetch", { params: { q: "index", adapter: n.fs.adapter, path: n.fs.data.dirname } });
+      n.emitter.emit("vf-fetch", {
+        params: {
+          q: "index",
+          adapter: n.fs.adapter,
+          path: n.fs.data.dirname
+        }
+      });
     }
   },
   preview: {
     key: _e.PREVIEW,
     title: ({ t: n }) => n("Preview"),
-    action: (n, e) => n.modal.open(Go, { adapter: n.fs.adapter, item: e.value[0] })
+    action: (n, e) => n.modal.open(Go, {
+      adapter: n.fs.adapter,
+      item: e.value[0]
+    })
   },
   open: {
     title: ({ t: n }) => n("Open"),
@@ -5375,7 +5386,7 @@ const Ae = {
     action: (n, e) => {
       const s = e.value[0];
       if ((s == null ? void 0 : s.type) === "dir")
-        n.emitter.emit("vf-download", s);
+        n.emitter.emit("vf-download", { item: s });
       else {
         const r = n.requester.getDownloadUrl(n.fs.adapter, s);
         window.open(r, "_blank");
@@ -5401,12 +5412,18 @@ const Ae = {
   ...Ue([Ae.openDir], {
     needsSearchQuery: !0
   }),
-  ...Ue([Ae.refresh, Ae.selectAll, Ae.newfolder], {
-    target: null
-  }),
-  ...Ue([Ae.refresh, Ae.archive, Ae.delete], {
-    target: "many"
-  }),
+  ...Ue(
+    [Ae.refresh, Ae.selectAll, Ae.newfolder],
+    {
+      target: null
+    }
+  ),
+  ...Ue(
+    [Ae.refresh, Ae.archive, Ae.delete],
+    {
+      target: "many"
+    }
+  ),
   ...Ue([Ae.open], {
     targetType: "dir"
   }),
