@@ -259,9 +259,9 @@ const Ve = (t, e) => {
     return (h || s) && (i = m, c = p), [i, h, c];
   };
   return [e ? (v) => u(e(i, c), v) : u, (v) => [i, !!v, c]];
-}, Ar = typeof window < "u" && typeof HTMLElement < "u" && !!window.document, Le = Ar ? window : {}, js = Math.max, Mr = Math.min, In = Math.round, sn = Math.abs, bs = Math.sign, Gs = Le.cancelAnimationFrame, Jn = Le.requestAnimationFrame, on = Le.setTimeout, Hn = Le.clearTimeout, vn = (t) => typeof Le[t] < "u" ? Le[t] : void 0, Dr = vn("MutationObserver"), ws = vn("IntersectionObserver"), pt = vn("ResizeObserver"), Mt = vn("ScrollTimeline"), es = (t) => t === void 0, _n = (t) => t === null, We = (t) => typeof t == "number", Ht = (t) => typeof t == "string", mn = (t) => typeof t == "boolean", Re = (t) => typeof t == "function", Ye = (t) => Array.isArray(t), rn = (t) => typeof t == "object" && !Ye(t) && !_n(t), ts = (t) => {
+}, Ar = typeof window < "u" && typeof HTMLElement < "u" && !!window.document, Le = Ar ? window : {}, js = Math.max, Mr = Math.min, In = Math.round, sn = Math.abs, bs = Math.sign, Gs = Le.cancelAnimationFrame, Jn = Le.requestAnimationFrame, on = Le.setTimeout, Hn = Le.clearTimeout, vn = (t) => typeof Le[t] < "u" ? Le[t] : void 0, Dr = vn("MutationObserver"), ws = vn("IntersectionObserver"), pt = vn("ResizeObserver"), Mt = vn("ScrollTimeline"), es = (t) => t === void 0, _n = (t) => t === null, We = (t) => typeof t == "number", Ht = (t) => typeof t == "string", mn = (t) => typeof t == "boolean", Be = (t) => typeof t == "function", Ye = (t) => Array.isArray(t), rn = (t) => typeof t == "object" && !Ye(t) && !_n(t), ts = (t) => {
   const e = !!t && t.length, n = We(e) && e > -1 && e % 1 == 0;
-  return Ye(t) || !Re(t) && n ? e > 0 && rn(t) ? e - 1 in t : !0 : !1;
+  return Ye(t) || !Be(t) && n ? e > 0 && rn(t) ? e - 1 in t : !0 : !1;
 }, an = (t) => !!t && t.constructor === Object, ln = (t) => t instanceof HTMLElement, pn = (t) => t instanceof Element;
 function le(t, e) {
   if (ts(t))
@@ -289,7 +289,7 @@ const Ws = (t, e) => t.indexOf(e) >= 0, Ot = (t, e) => t.concat(e), he = (t, e, 
   let e;
   const n = t ? on : Jn, o = t ? Hn : Gs;
   return [(s) => {
-    o(e), e = n(() => s(), Re(t) ? t() : t);
+    o(e), e = n(() => s(), Be(t) ? t() : t);
   }, () => o(e)];
 }, cn = (t, e) => {
   const { _: n, p: o, v: s, S: i } = e || {};
@@ -299,9 +299,9 @@ const Ws = (t, e) => t.indexOf(e) >= 0, Ot = (t, e) => t.concat(e), he = (t, e, 
   }, p = (w) => i && u ? i(u, w) : w, m = () => {
     v !== at && d(p(l) || l);
   }, h = function() {
-    const x = it(arguments), M = Re(n) ? n() : n;
+    const x = it(arguments), M = Be(n) ? n() : n;
     if (We(M) && M >= 0) {
-      const L = Re(o) ? o() : o, y = We(L) && L >= 0, V = M > 0 ? on : Jn, H = M > 0 ? Hn : Gs, T = p(x) || x, $ = d.bind(0, T);
+      const L = Be(o) ? o() : o, y = We(L) && L >= 0, V = M > 0 ? on : Jn, H = M > 0 ? Hn : Gs, T = p(x) || x, $ = d.bind(0, T);
       let C;
       v(), s && !f ? ($(), f = !0, C = V(() => f = void 0, M)) : (C = V($, M), y && !c && (c = on(m, L))), v = () => H(C), u = l = T;
     } else
@@ -310,7 +310,7 @@ const Ws = (t, e) => t.indexOf(e) >= 0, Ot = (t, e) => t.concat(e), he = (t, e, 
   return h.m = m, h;
 }, oo = (t, e) => Object.prototype.hasOwnProperty.call(t, e), Ue = (t) => t ? Object.keys(t) : [], oe = (t, e, n, o, s, i, c) => {
   const u = [e, n, o, s, i, c];
-  return (typeof t != "object" || _n(t)) && !Re(t) && (t = {}), le(u, (l) => {
+  return (typeof t != "object" || _n(t)) && !Be(t) && (t = {}), le(u, (l) => {
     le(l, (f, v) => {
       const d = l[v];
       if (t === d)
@@ -506,7 +506,7 @@ const xs = (t, e, n) => {
     if (Ht(i)) {
       const f = e.get(i) || /* @__PURE__ */ new Set();
       return e.set(i, f), Cs((v) => {
-        Re(v) && f.add(v);
+        Be(v) && f.add(v);
       }, c), X(n, i, c);
     }
     mn(c) && c && n();
@@ -550,7 +550,7 @@ const xs = (t, e, n) => {
     }
   };
 }, To = "__osScrollbarsHidingPlugin", ua = "__osClickScrollPlugin", Ls = (t) => JSON.stringify(t, (e, n) => {
-  if (Re(n))
+  if (Be(n))
     throw 0;
   return n;
 }), Vs = (t, e) => t ? `${e}`.split(".").reduce((n, o) => n && oo(n, o) ? n[o] : void 0, t) : void 0, fa = {
@@ -651,7 +651,7 @@ const ma = () => {
   };
   if (qe(s, "style"), kt(s), fe(Le, "resize", () => {
     f("r", []);
-  }), Re(Le.matchMedia) && !m && (!h.x || !h.y)) {
+  }), Be(Le.matchMedia) && !m && (!h.x || !h.y)) {
     const y = (V) => {
       const H = Le.matchMedia(`(resolution: ${Le.devicePixelRatio}dppx)`);
       fe(H, "change", () => {
@@ -885,7 +885,7 @@ const Do = (t, e, n) => {
       B && B.disconnect(), A && A(), j && j(), u && u(), q(), W();
     };
   }, ({ It: A, At: j, Dt: q }) => {
-    const W = {}, [Z] = A("update.ignoreMutation"), [re, ue] = A("update.attributes"), [ie, Ee] = A("update.elementEvents"), [ee, we] = A("update.debounce"), Me = Ee || ue, ke = j || q, xe = (ge) => Re(Z) && Z(ge);
+    const W = {}, [Z] = A("update.ignoreMutation"), [re, ue] = A("update.attributes"), [ie, Ee] = A("update.elementEvents"), [ee, we] = A("update.debounce"), Me = Ee || ue, ke = j || q, xe = (ge) => Be(Z) && Z(ge);
     if (Me) {
       c && c(), u && u();
       const [ge, be] = Is(M || w, !0, N, {
@@ -910,7 +910,7 @@ const Do = (t, e, n) => {
     }
     return R(W), W;
   }, T];
-}, Oo = (t, e) => Re(e) ? e.apply(0, t) : e, ba = (t, e, n, o) => {
+}, Oo = (t, e) => Be(e) ? e.apply(0, t) : e, ba = (t, e, n, o) => {
   const s = es(o) ? n : o;
   return Oo(t, s) || e.apply(0, t);
 }, Lo = (t, e, n, o) => {
@@ -1023,7 +1023,7 @@ const Do = (t, e, n) => {
   }, _e];
 }, ka = (t, e, n, o) => (s, i, c) => {
   const { ht: u, U: l, L: f, gt: v, Kt: d, Ot: p } = e, { Ut: m, Pt: h, kt: w } = s, [x, M] = ht(333), [I, L] = ht(444), y = (E) => {
-    Re(v.scrollBy) && v.scrollBy({
+    Be(v.scrollBy) && v.scrollBy({
       behavior: "smooth",
       left: E.x,
       top: E.y
@@ -1522,7 +1522,7 @@ Ne.plugin = (t) => {
   return qr(n), e ? o : o[0];
 };
 Ne.valid = (t) => {
-  const e = t && t.elements, n = Re(e) && e();
+  const e = t && t.elements, n = Be(e) && e();
   return an(n) && !!Vo(n.target);
 };
 Ne.env = () => {
@@ -5297,7 +5297,7 @@ class Yf {
     return !(this.options.needsSearchQuery !== !!n.searchQuery || this.options.target !== void 0 && this.options.target !== o(n) || this.options.targetType !== void 0 && this.options.targetType !== ((s = n.target) == null ? void 0 : s.type) || this.options.mimeType !== void 0 && this.options.mimeType !== ((i = n.target) == null ? void 0 : i.mime_type) || this.options.feature !== void 0 && !e.features.includes(this.options.feature) || this.options.show !== void 0 && !this.options.show(e, n));
   }
 }
-function Be(t, e) {
+function Re(t, e) {
   return t.map((n) => new Yf(n.title, n.action, n.link, {
     ...e,
     feature: n.key
@@ -5390,49 +5390,52 @@ const Te = {
     action: (t, e) => t.modal.open(vs, { items: e })
   }
 }, Kf = [
-  ...Be([Te.openDir], {
+  ...Re([Te.openDir], {
     needsSearchQuery: !0
   }),
-  ...Be([Te.refresh, Te.selectAll, Te.newfolder], {
+  ...Re([Te.refresh, Te.selectAll, Te.newfolder], {
     target: null
   }),
-  ...Be([Te.refresh, Te.archive, Te.delete], {
+  ...Re([Te.refresh, Te.archive, Te.delete], {
     target: "many"
   }),
-  ...Be([Te.open], {
+  ...Re([Te.open], {
     targetType: "dir"
   }),
-  ...Be([Te.unpinFolder], {
+  ...Re([Te.unpinFolder], {
     targetType: "dir",
     show: (t, e) => t.pinnedFolders.findIndex((n) => {
       var o;
       return n.path === ((o = e.target) == null ? void 0 : o.path);
     }) !== -1
   }),
-  ...Be([Te.pinFolder], {
+  ...Re([Te.pinFolder], {
     targetType: "dir",
     show: (t, e) => t.pinnedFolders.findIndex((n) => {
       var o;
       return n.path === ((o = e.target) == null ? void 0 : o.path);
     }) === -1
   }),
-  ...Be([Te.preview, Te.download], {
+  ...Re([Te.preview], {
     show: (t, e) => {
       var n;
       return ((n = e.target) == null ? void 0 : n.type) !== "dir";
     }
   }),
-  ...Be([Te.rename], { numItems: "one" }),
-  ...Be([Te.unarchive], {
+  ...Re([Te.download], {
+    target: "many"
+  }),
+  ...Re([Te.rename], { numItems: "one" }),
+  ...Re([Te.unarchive], {
     mimeType: "application/zip"
   }),
-  ...Be([Te.archive], {
+  ...Re([Te.archive], {
     show: (t, e) => {
       var n;
       return ((n = e.target) == null ? void 0 : n.mime_type) !== "application/zip";
     }
   }),
-  ...Be([Te.delete], {})
+  ...Re([Te.delete], {})
 ], Xf = { class: "vuefinder__main__content" }, Zf = {
   __name: "VueFinder",
   props: {

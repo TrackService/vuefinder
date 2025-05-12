@@ -231,8 +231,11 @@ export const menuItems = [
     targetType: 'dir',
     show: (app, ctx) => app.pinnedFolders.findIndex((item) => item.path === ctx.target?.path) === -1
   }),
-  ...itemBundle([templateMap.preview, templateMap.download], {
+  ...itemBundle([templateMap.preview], {
     show: (app, ctx) => ctx.target?.type !== 'dir'
+  }),
+  ...itemBundle([templateMap.download], {
+    target: 'many'
   }),
   ...itemBundle([templateMap.rename], {numItems: 'one',}),
   ...itemBundle([templateMap.unarchive], {
