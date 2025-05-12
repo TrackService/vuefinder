@@ -5575,9 +5575,7 @@ const Ae = {
             params: u,
             body: p,
             abortSignal: x
-          }).then(($) => {
-            console.log("Download response:", $);
-          }).then(($) => $.blob()).then(($) => {
+          }).then(($) => (console.log("Download response:", $), $)).then(($) => $.blob()).then(($) => {
             const R = window.URL.createObjectURL($), L = document.createElement("a");
             L.href = R, L.download = "folder.zip", L.click(), window.URL.revokeObjectURL(R);
           }).catch(($) => {

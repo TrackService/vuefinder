@@ -193,6 +193,7 @@ app.emitter.on(
         })
         .then((res) => {
           console.log("Download response:", res);
+          return res; // <-- обязательно возвращаем
         })
         .then((res) => res.blob())
         .then((blob) => {
