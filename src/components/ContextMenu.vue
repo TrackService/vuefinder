@@ -2,7 +2,7 @@
   <ul ref="contextmenu" v-show="context.active" :style="context.positions"
       class="vuefinder__context-menu">
     <li class="vuefinder__context-menu__item" v-for="(item) in context.items" :key="item.title">
-      <template v-if="item.link">
+      <template v-if="item.link && item.type === 'file'">
         <a class="vuefinder__context-menu__link" target="_blank" :href="link(item)" :download="link(item)"
            @click="app.emitter.emit('vf-contextmenu-hide')">
           <span>{{ item.title(app.i18n) }}</span>

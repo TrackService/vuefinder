@@ -4801,7 +4801,7 @@ const Go = { render: Hu }, Ru = ["data-type", "data-item", "data-index"], Fn = {
         class: "vuefinder__context-menu__item",
         key: d.title
       }, [
-        d.link ? (_(), g("a", {
+        d.link && d.type === "file" ? (_(), g("a", {
           key: 0,
           class: "vuefinder__context-menu__link",
           target: "_blank",
