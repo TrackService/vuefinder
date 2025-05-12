@@ -5591,7 +5591,7 @@ const Ae = {
           path: o.fs.data.dirname
         },
         body: {
-          item_path: u.path
+          path: u.path
         },
         onSuccess: () => {
           o.emitter.emit("vf-toast-push", { label: t("The folder downloaded.") });

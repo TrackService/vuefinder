@@ -226,7 +226,7 @@ app.emitter.on("vf-download", ({ item }) => {
       path: app.fs.data.dirname,
     },
     body: {
-      item_path: item.path,
+      path: item.path,
     },
     onSuccess: () => {
       app.emitter.emit("vf-toast-push", { label: t("The folder downloaded.") });
