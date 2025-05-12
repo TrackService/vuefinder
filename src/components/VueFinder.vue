@@ -191,22 +191,17 @@ app.emitter.on(
           body,
           abortSignal: signal,
         })
-        .then((res) => {
-          if (!res.ok) throw new Error("Download failed");
-          return res.blob();
-        })
+        .then((res) => res.blob())
         .then((blob) => {
-          const url = URL.createObjectURL(blob);
+          const url = window.URL.createObjectURL(blob);
           const a = document.createElement("a");
           a.href = url;
-          a.download = "folder.zip"; // можно заменить на динамическое имя
+          a.download = "folder.zip"; // или имя, полученное отдельно
           a.click();
-          URL.revokeObjectURL(url);
-          if (onSuccess) onSuccess(blob);
+          window.URL.revokeObjectURL(url);
         })
-        .catch((e) => {
-          console.error(e);
-          if (onError) onError(e);
+        .catch((err) => {
+          console.error("Download error:", err);
         })
         .finally(() => {
           if (["index", "search"].includes(params.q)) {
