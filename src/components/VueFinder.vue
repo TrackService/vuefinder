@@ -197,22 +197,48 @@ app.emitter.on(
           : null,
         abortSignal: signal,
       })
-        .then((res) => {
-          if (!res.ok) throw new Error("HTTP error " + res.status);
-          return res.blob(); // Получаем blob (ZIP-файл)
+        // .then((res) => {
+        //   if (!res.ok) throw new Error("HTTP error " + res.status);
+        //   return res.blob(); // Получаем blob (ZIP-файл)
+        // })
+        // .then((blob) => {
+        //   const url = window.URL.createObjectURL(blob);
+        //   const a = document.createElement("a");
+        //   a.href = url;
+        //   a.download = "folder.zip"; // можно динамически из Content-Disposition
+        //   document.body.appendChild(a); // Firefox fix
+        //   a.click();
+        //   a.remove();
+        //   window.URL.revokeObjectURL(url);
+        // })
+        // .catch((err) => {
+        //   console.error("Download error:", err);
+        // });
+        .then((response) => {
+          const disposition = response.headers.get("Content-Disposition");
+          let filename = "folder.zip"; // значение по умолчанию
+
+          if (disposition && disposition.includes("filename=")) {
+            const match = disposition.match(/filename="?([^"]+)"?/);
+            if (match && match[1]) {
+              filename = match[1];
+            }
+          }
+
+          return response.blob().then((blob) => ({ blob, filename }));
         })
-        .then((blob) => {
+        .then(({ blob, filename }) => {
           const url = window.URL.createObjectURL(blob);
           const a = document.createElement("a");
           a.href = url;
-          a.download = "folder.zip"; // можно динамически из Content-Disposition
+          a.download = filename;
           document.body.appendChild(a); // Firefox fix
           a.click();
           a.remove();
           window.URL.revokeObjectURL(url);
         })
         .catch((err) => {
-          console.error("Download error:", err);
+          console.error("Download error", err);
         });
 
       return;
