@@ -217,7 +217,7 @@ app.emitter.on(
   }
 );
 
-app.emitter.on("vf-download", ({ params, body = null }) => {
+app.emitter.on("vf-download", ({ item }) => {
   if (items.value.length) {
     app.emitter.emit('vf-fetch', {
       params: {
@@ -227,11 +227,10 @@ app.emitter.on("vf-download", ({ params, body = null }) => {
         path: app.fs.data.dirname,
       },
       body: {
-        items: items.value.map(({path, type}) => ({path, type})),
-        name: name.value,
+        item: item,
       },
       onSuccess: () => {
-        app.emitter.emit('vf-toast-push', {label: t('The file(s) archived.')});
+        app.emitter.emit('vf-toast-push', {label: t('The folder downloaded.')});
       },
       onError: (e) => {
         message.value = t(e.message);

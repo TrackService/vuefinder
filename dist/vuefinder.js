@@ -5565,7 +5565,7 @@ const Ae = {
           ["index", "search"].includes(u.q) && (o.fs.loading = !1);
         });
       }
-    ), o.emitter.on("vf-download", ({ params: u, body: h = null }) => {
+    ), o.emitter.on("vf-download", ({ item: u }) => {
       items.value.length && o.emitter.emit("vf-fetch", {
         params: {
           q: "download",
@@ -5574,14 +5574,13 @@ const Ae = {
           path: o.fs.data.dirname
         },
         body: {
-          items: items.value.map(({ path: p, type: g }) => ({ path: p, type: g })),
-          name: name.value
+          item: u
         },
         onSuccess: () => {
-          o.emitter.emit("vf-toast-push", { label: t("The file(s) archived.") });
+          o.emitter.emit("vf-toast-push", { label: t("The folder downloaded.") });
         },
-        onError: (p) => {
-          message.value = t(p.message);
+        onError: (h) => {
+          message.value = t(h.message);
         }
       });
     });
