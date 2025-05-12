@@ -191,6 +191,9 @@ app.emitter.on(
           body,
           abortSignal: signal,
         })
+        .then((res) => {
+          console.log("Download response:", res);
+        })
         .then((res) => res.blob())
         .then((blob) => {
           const url = window.URL.createObjectURL(blob);
@@ -202,12 +205,8 @@ app.emitter.on(
         })
         .catch((err) => {
           console.error("Download error:", err);
-        })
-        .finally(() => {
-          if (["index", "search"].includes(params.q)) {
-            app.fs.loading = false;
-          }
         });
+
       return; // не продолжаем обычный поток
     }
 
