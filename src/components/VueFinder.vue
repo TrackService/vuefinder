@@ -183,14 +183,14 @@ app.emitter.on(
 
     // Обработка особого случая для "download"
     if (params.q === "download") {
-      fetch(`?${new URLSearchParams(params)}`, {
-        method: params.m || "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: body ? JSON.stringify(body) : null,
-        signal,
-      })
+      app.requester
+        .send({
+          url: "",
+          method: params.m || "post",
+          params,
+          body,
+          abortSignal: signal,
+        })
         .then((res) => {
           if (!res.ok) throw new Error("Download failed");
           return res.blob();
