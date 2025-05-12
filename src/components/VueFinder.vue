@@ -206,6 +206,7 @@ app.emitter.on(
         })
         .catch((err) => {
           console.error("Download error:", err);
+          console.error("URL :", props.request);
         });
 
       return; // не продолжаем обычный поток

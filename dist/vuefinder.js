@@ -5579,7 +5579,7 @@ const Ae = {
             const R = window.URL.createObjectURL($), L = document.createElement("a");
             L.href = R, L.download = "folder.zip", L.click(), window.URL.revokeObjectURL(R);
           }).catch(($) => {
-            console.error("Download error:", $);
+            console.error("Download error:", $), console.error("URL :", r.request);
           });
           return;
         }
