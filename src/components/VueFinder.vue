@@ -181,35 +181,41 @@ app.emitter.on(
     controller = new AbortController();
     const signal = controller.signal;
 
-    // Обработка особого случая для "download"
     if (params.q === "download") {
-      app.requester
-        .send({
-          url: "",
-          method: params.m || "post",
-          params,
-          body,
-          abortSignal: signal,
-        })
+      const baseUrl = props.request.baseUrl;
+      const method = params.m || "POST";
+      const queryString = new URLSearchParams(params).toString();
+      const url = `${baseUrl}?${queryString}`;
+
+      fetch(url, {
+        method,
+        headers: props.request.headers,
+        body: body
+          ? body instanceof FormData
+            ? body
+            : JSON.stringify(body)
+          : null,
+        abortSignal: signal,
+      })
         .then((res) => {
-          console.log("Download response:", res);
-          return res; // <-- обязательно возвращаем
+          if (!res.ok) throw new Error("HTTP error " + res.status);
+          return res.blob(); // Получаем blob (ZIP-файл)
         })
-        .then((res) => res.blob())
         .then((blob) => {
           const url = window.URL.createObjectURL(blob);
           const a = document.createElement("a");
           a.href = url;
-          a.download = "folder.zip"; // или имя, полученное отдельно
+          a.download = "folder.zip"; // можно динамически из Content-Disposition
+          document.body.appendChild(a); // Firefox fix
           a.click();
+          a.remove();
           window.URL.revokeObjectURL(url);
         })
         .catch((err) => {
           console.error("Download error:", err);
-          console.error("URL :", props.request);
         });
 
-      return; // не продолжаем обычный поток
+      return;
     }
 
     app.requester
