@@ -5591,13 +5591,13 @@ const Ae = {
           path: o.fs.data.dirname
         },
         body: {
-          item: u
+          item_path: u.path
         },
         onSuccess: () => {
           o.emitter.emit("vf-toast-push", { label: t("The folder downloaded.") });
         },
         onError: (h) => {
-          message.value = t(h.message);
+          onError(h);
         }
       });
     });

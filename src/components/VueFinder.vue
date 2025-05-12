@@ -226,13 +226,13 @@ app.emitter.on("vf-download", ({ item }) => {
       path: app.fs.data.dirname,
     },
     body: {
-      item: item,
+      item_path: item.path,
     },
     onSuccess: () => {
       app.emitter.emit("vf-toast-push", { label: t("The folder downloaded.") });
     },
     onError: (e) => {
-      message.value = t(e.message);
+      onError(e);
     },
   });
 });
