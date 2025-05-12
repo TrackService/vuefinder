@@ -178,6 +178,41 @@ app.emitter.on(
       app.fs.loading = true;
     }
 
+    // Обработка особого случая для "download"
+    if (params.q === "download") {
+      fetch(`?${new URLSearchParams(params)}`, {
+        method: params.m || "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: body ? JSON.stringify(body) : null,
+        signal,
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error("Download failed");
+          return res.blob();
+        })
+        .then((blob) => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "folder.zip"; // можно заменить на динамическое имя
+          a.click();
+          URL.revokeObjectURL(url);
+          if (onSuccess) onSuccess(blob);
+        })
+        .catch((e) => {
+          console.error(e);
+          if (onError) onError(e);
+        })
+        .finally(() => {
+          if (["index", "search"].includes(params.q)) {
+            app.fs.loading = false;
+          }
+        });
+      return; // не продолжаем обычный поток
+    }
+
     controller = new AbortController();
     const signal = controller.signal;
     app.requester
