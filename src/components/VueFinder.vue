@@ -217,6 +217,30 @@ app.emitter.on(
   }
 );
 
+app.emitter.on("vf-download", ({ params, body = null }) => {
+  if (items.value.length) {
+    app.emitter.emit('vf-fetch', {
+      params: {
+        q: 'download',
+        m: 'post',
+        adapter: app.fs.adapter,
+        path: app.fs.data.dirname,
+      },
+      body: {
+        items: items.value.map(({path, type}) => ({path, type})),
+        name: name.value,
+      },
+      onSuccess: () => {
+        app.emitter.emit('vf-toast-push', {label: t('The file(s) archived.')});
+      },
+      onError: (e) => {
+        message.value = t(e.message);
+      }
+    });
+  }
+});
+
+
 /**
  * fetchPath fetches the items of the given path
  * if no path is given, the backend should return the root of the current adapter

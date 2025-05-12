@@ -195,6 +195,9 @@ const templateMap = {
       const item = selectedItems.value[0];
       if (item?.type === 'dir') {
         app.emitter.emit('vf-download', item);
+      } else {
+        const url = app.requester.getDownloadUrl(app.fs.adapter, item);
+        window.open(url, '_blank');
       }
     },
   },
