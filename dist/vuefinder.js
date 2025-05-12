@@ -5566,7 +5566,9 @@ const Ae = {
         onError: g = null,
         noCloseModal: y = !1
       }) => {
-        if (["index", "search"].includes(u.q) && (v && v.abort(), o.fs.loading = !0), u.q === "download") {
+        ["index", "search"].includes(u.q) && (v && v.abort(), o.fs.loading = !0), v = new AbortController();
+        const x = v.signal;
+        if (u.q === "download") {
           fetch(`?${new URLSearchParams(u)}`, {
             method: u.m || "GET",
             headers: {
@@ -5587,8 +5589,6 @@ const Ae = {
           });
           return;
         }
-        v = new AbortController();
-        const x = v.signal;
         o.requester.send({
           url: "",
           method: u.m || "get",

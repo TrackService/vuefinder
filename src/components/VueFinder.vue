@@ -178,6 +178,9 @@ app.emitter.on(
       app.fs.loading = true;
     }
 
+    controller = new AbortController();
+    const signal = controller.signal;
+
     // Обработка особого случая для "download"
     if (params.q === "download") {
       fetch(`?${new URLSearchParams(params)}`, {
@@ -213,8 +216,6 @@ app.emitter.on(
       return; // не продолжаем обычный поток
     }
 
-    controller = new AbortController();
-    const signal = controller.signal;
     app.requester
       .send({
         url: "",
