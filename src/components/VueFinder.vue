@@ -218,27 +218,24 @@ app.emitter.on(
 );
 
 app.emitter.on("vf-download", ({ item }) => {
-  if (items.value.length) {
-    app.emitter.emit('vf-fetch', {
-      params: {
-        q: 'download',
-        m: 'post',
-        adapter: app.fs.adapter,
-        path: app.fs.data.dirname,
-      },
-      body: {
-        item: item,
-      },
-      onSuccess: () => {
-        app.emitter.emit('vf-toast-push', {label: t('The folder downloaded.')});
-      },
-      onError: (e) => {
-        message.value = t(e.message);
-      }
-    });
-  }
+  app.emitter.emit("vf-fetch", {
+    params: {
+      q: "download",
+      m: "post",
+      adapter: app.fs.adapter,
+      path: app.fs.data.dirname,
+    },
+    body: {
+      item: item,
+    },
+    onSuccess: () => {
+      app.emitter.emit("vf-toast-push", { label: t("The folder downloaded.") });
+    },
+    onError: (e) => {
+      message.value = t(e.message);
+    },
+  });
 });
-
 
 /**
  * fetchPath fetches the items of the given path

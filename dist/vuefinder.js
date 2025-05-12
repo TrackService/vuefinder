@@ -5566,7 +5566,7 @@ const Ae = {
         });
       }
     ), o.emitter.on("vf-download", ({ item: u }) => {
-      items.value.length && o.emitter.emit("vf-fetch", {
+      o.emitter.emit("vf-fetch", {
         params: {
           q: "download",
           m: "post",
