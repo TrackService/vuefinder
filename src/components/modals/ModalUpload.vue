@@ -364,7 +364,24 @@ onMounted(async () => {
     restrictions: {
       maxFileSize: parse(app.maxFileSize),
       //maxNumberOfFiles
-      //allowedFileTypes
+      allowedFileTypes: [
+        ".jpg",
+        ".jpeg",
+        ".png",
+        ".gif",
+        ".bmp",
+        ".tiff",
+        ".webp",
+        ".svg",
+        ".pdf",
+        ".doc",
+        ".docx",
+        ".xls",
+        ".xlsx",
+        ".pptx",
+        ".txt",
+        ".csv",
+      ],
     },
     locale: uppyLocale,
     onBeforeFileAdded(file, files) {

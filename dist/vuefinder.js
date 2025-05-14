@@ -2779,9 +2779,26 @@ const Bo = { render: ki }, xi = { class: "vuefinder__upload-modal__content" }, S
       S = new pr({
         debug: e.debug,
         restrictions: {
-          maxFileSize: Er(e.maxFileSize)
+          maxFileSize: Er(e.maxFileSize),
           //maxNumberOfFiles
-          //allowedFileTypes
+          allowedFileTypes: [
+            ".jpg",
+            ".jpeg",
+            ".png",
+            ".gif",
+            ".bmp",
+            ".tiff",
+            ".webp",
+            ".svg",
+            ".pdf",
+            ".doc",
+            ".docx",
+            ".xls",
+            ".xlsx",
+            ".pptx",
+            ".txt",
+            ".csv"
+          ]
         },
         locale: r,
         onBeforeFileAdded($, N) {
