@@ -34,14 +34,6 @@
           >
             {{ t("Clear all") }}
           </button>
-          <button
-            type="button"
-            class="vf-btn vf-btn-secondary"
-            :disabled="uploading"
-            @click="clear(true)"
-          >
-            {{ t("Clear only successful") }}
-          </button>
         </div>
         <div class="vuefinder__upload-modal__file-list vf-scrollbar">
           <div
