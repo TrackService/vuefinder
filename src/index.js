@@ -1,4 +1,3 @@
-import { ref } from "vue";
 import VueFinder from "./components/VueFinder.vue";
 import "./assets/css/style.scss";
 import { menuItems, SimpleItem } from "./utils/contextmenu";
@@ -12,11 +11,7 @@ export default {
     // define global properties with 'options'
     options.i18n = options.i18n ?? {};
     let [firstLanguage] = Object.keys(options.i18n);
-    // options.locale = options.locale ?? firstLanguage ?? 'en';
-
-    const localeRef = ref(options.locale ?? firstLanguage ?? "en");
-    options.locale = localeRef.value;
-    options.localeRef = localeRef;
+    options.locale = options.locale ?? firstLanguage ?? "en";
 
     // unique id for the app options
     app.provide("VueFinderOptions", options);

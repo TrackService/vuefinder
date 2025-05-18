@@ -5699,8 +5699,7 @@ const Ae = {
   install(n, e = {}) {
     e.i18n = e.i18n ?? {};
     let [s] = Object.keys(e.i18n);
-    const r = F(e.locale ?? s ?? "en");
-    e.locale = r.value, e.localeRef = r, n.provide("VueFinderOptions", e), n.component("VueFinder", Zf);
+    e.locale = e.locale ?? s ?? "en", n.provide("VueFinderOptions", e), n.component("VueFinder", Zf);
   }
 };
 export {
