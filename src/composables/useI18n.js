@@ -81,5 +81,5 @@ export function useI18n(storage, initialLocale, emitter, supportedLocales) {
     return sprintf(key, ...params);
   }
 
-  return reactive({ t, locale });
+  return reactive({ t, locale, addLocale, changeLocale });
 }
