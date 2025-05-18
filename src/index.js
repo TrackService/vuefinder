@@ -1,27 +1,28 @@
-import VueFinder from './components/VueFinder.vue';
-import './assets/css/style.scss';
-import { menuItems, SimpleItem } from './utils/contextmenu';
+import VueFinder from "./components/VueFinder.vue";
+import "./assets/css/style.scss";
+import { menuItems, SimpleItem } from "./utils/contextmenu";
 
 export default {
-    /**
-     * @param {import('vue').App} app
-     * @param options
-     */
-    install(app, options = {}) {
-        // define global properties with 'options'
-        options.i18n = options.i18n ?? {};
-        let [firstLanguage] = Object.keys(options.i18n)
-        options.locale = options.locale ?? firstLanguage ?? 'en';
+  /**
+   * @param {import('vue').App} app
+   * @param options
+   */
+  install(app, options = {}) {
+    // define global properties with 'options'
+    options.i18n = options.i18n ?? {};
+    let [firstLanguage] = Object.keys(options.i18n);
+    // options.locale = options.locale ?? firstLanguage ?? 'en';
 
-        // unique id for the app options
-        app.provide('VueFinderOptions', options);
+    const localeRef = ref(options.locale ?? firstLanguage ?? "en");
+    options.locale = localeRef.value;
+    options.localeRef = localeRef;
 
-        // define main component
-        app.component("VueFinder", VueFinder);
-    }
+    // unique id for the app options
+    app.provide("VueFinderOptions", options);
+
+    // define main component
+    app.component("VueFinder", VueFinder);
+  },
 };
 
-export {
-    menuItems as contextMenuItems,
-    SimpleItem as SimpleContextMenuItem,
-}
+export { menuItems as contextMenuItems, SimpleItem as SimpleContextMenuItem };
