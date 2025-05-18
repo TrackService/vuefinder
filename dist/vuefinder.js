@@ -167,9 +167,7 @@ async function xr(n, e) {
 function Sr(n, e, s, r) {
   const { getStore: o, setStore: c } = n, d = F({}), f = F(o("locale", e)), i = (u, p = e) => {
     xr(u, r).then((h) => {
-      d.value = h, c("locale", u), f.value = u, c("translations", h), Object.values(r).length > 1 && (s.emit("vf-toast-push", {
-        label: "The language is set to " + u
-      }), s.emit("vf-language-saved"));
+      d.value = h, c("locale", u), f.value = u, c("translations", h), Object.values(r).length > 1 && s.emit("vf-language-saved");
     }).catch((h) => {
       p ? (s.emit("vf-toast-push", {
         label: "The selected locale is not yet supported!",
