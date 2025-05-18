@@ -1,3 +1,4 @@
+import { ref } from "vue";
 import VueFinder from "./components/VueFinder.vue";
 import "./assets/css/style.scss";
 import { menuItems, SimpleItem } from "./utils/contextmenu";
