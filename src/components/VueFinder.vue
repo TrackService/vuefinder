@@ -135,8 +135,8 @@ const props = defineProps({
 });
 
 // the object is passed to all components as props
-const app = ServiceContainer(props, inject("VueFinderOptions"));
-provide("ServiceContainer", app);
+// const app = ServiceContainer(props, inject("VueFinderOptions"));
+// provide("ServiceContainer", app);
 const { setStore } = app.storage;
 
 //  Define root element
