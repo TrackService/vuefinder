@@ -260,6 +260,10 @@ app.emitter.on(
         params,
         body,
         abortSignal: signal,
+        headers: {
+          ...(props.request.headers || {}),
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
       })
       .then((data) => {
         app.fs.adapter = data.adapter;

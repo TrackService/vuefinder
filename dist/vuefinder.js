@@ -5612,7 +5612,11 @@ const Ae = {
           method: v.m || "get",
           params: v,
           body: h,
-          abortSignal: S
+          abortSignal: S,
+          headers: {
+            ...r.request.headers || {},
+            ...token ? { Authorization: `Bearer ${token}` } : {}
+          }
         }).then((M) => {
           o.fs.adapter = M.adapter, o.persist && (o.fs.path = M.dirname, c("path", o.fs.path)), y || o.modal.close(), i(M), _ && _(M);
         }).catch((M) => {
