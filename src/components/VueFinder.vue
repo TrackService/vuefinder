@@ -181,16 +181,16 @@ app.emitter.on(
     controller = new AbortController();
     const signal = controller.signal;
 
+    // 22_05
+    const token = props.request.getToken
+      ? await props.request.getToken()
+      : null;
+
     if (params.q === "download") {
       const baseUrl = props.request.baseUrl;
       const method = params.m || "POST";
       const queryString = new URLSearchParams(params).toString();
       const url = `${baseUrl}?${queryString}`;
-
-      // 22_05
-      const token = props.request.getToken
-        ? await props.request.getToken()
-        : null;
 
       fetch(url, {
         method,
