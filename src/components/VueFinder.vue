@@ -164,7 +164,7 @@ app.emitter.on("vf-fetch-abort", () => {
 // Fetch data
 app.emitter.on(
   "vf-fetch",
-  ({
+  async ({
     params,
     body = null,
     onSuccess = null,
@@ -187,9 +187,18 @@ app.emitter.on(
       const queryString = new URLSearchParams(params).toString();
       const url = `${baseUrl}?${queryString}`;
 
+      // 22_05
+      const token = props.request.getToken
+        ? await props.request.getToken()
+        : null;
+
       fetch(url, {
         method,
-        headers: props.request.headers,
+        // headers: props.request.headers,
+        headers: {
+          ...props.request.headers,
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
         body: body
           ? body instanceof FormData
             ? body
