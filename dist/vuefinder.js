@@ -5584,7 +5584,6 @@ const Ae = {
           const I = r.request.baseUrl, D = v.m || "POST", x = new URLSearchParams(v).toString(), F = `${I}?${x}`;
           fetch(F, {
             method: D,
-            // headers: props.request.headers,
             headers: {
               ...r.request.headers,
               ...O ? { Authorization: `Bearer ${O}` } : {}

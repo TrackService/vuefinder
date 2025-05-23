@@ -181,7 +181,6 @@ app.emitter.on(
     controller = new AbortController();
     const signal = controller.signal;
 
-    // 22_05
     const token = props.request.getToken
       ? await props.request.getToken()
       : null;
@@ -194,7 +193,6 @@ app.emitter.on(
 
       fetch(url, {
         method,
-        // headers: props.request.headers,
         headers: {
           ...props.request.headers,
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
@@ -206,23 +204,6 @@ app.emitter.on(
           : null,
         abortSignal: signal,
       })
-        // .then((res) => {
-        //   if (!res.ok) throw new Error("HTTP error " + res.status);
-        //   return res.blob(); // Получаем blob (ZIP-файл)
-        // })
-        // .then((blob) => {
-        //   const url = window.URL.createObjectURL(blob);
-        //   const a = document.createElement("a");
-        //   a.href = url;
-        //   a.download = "folder.zip"; // можно динамически из Content-Disposition
-        //   document.body.appendChild(a); // Firefox fix
-        //   a.click();
-        //   a.remove();
-        //   window.URL.revokeObjectURL(url);
-        // })
-        // .catch((err) => {
-        //   console.error("Download error:", err);
-        // });
         .then((response) => {
           const disposition = response.headers.get("Content-Disposition");
           let filename = "folder.zip"; // значение по умолчанию
