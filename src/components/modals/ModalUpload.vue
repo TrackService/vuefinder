@@ -158,8 +158,6 @@ const { t } = app.i18n;
 
 const uppyLocale = t("uppy");
 
-const token = ref("");
-
 const QUEUE_ENTRY_STATUS = {
   PENDING: 0,
   CANCELED: 1,
@@ -344,37 +342,15 @@ function close() {
   app.modal.close();
 }
 
-// function buildReqParams() {
-//   return app.requester.transformRequestParams({
-//     url: "",
-//     method: "post",
-//     params: { q: "upload", adapter: app.fs.adapter, path: app.fs.data.dirname },
-//   });
-// }
-
-async function buildReqParams() {
-  // получаем токен
-
-  return {
-    url: import.meta.env.VITE_API_URL + "/v1/filemanager",
-    method: "POST",
-    headers: {
-      ...(token.value ? { Authorization: `Bearer ${token.value}` } : {}),
-    },
-    params: {
-      q: "upload",
-      adapter: app.fs.adapter,
-      path: app.fs.data.dirname,
-    },
-    body: {
-      vf: 1,
-    },
-  };
+function buildReqParams() {
+  return app.requester.transformRequestParams({
+    url: "",
+    method: "post",
+    params: { q: "upload", adapter: app.fs.adapter, path: app.fs.data.dirname },
+  });
 }
 
 onMounted(async () => {
-  token = await authStore.getAccessToken();
-
   uppy = new Uppy({
     debug: app.debug,
     restrictions: {
@@ -448,8 +424,18 @@ onMounted(async () => {
     remove(entry);
     message.value = error.message;
   });
-  uppy.on("upload", () => {
+  uppy.on("upload", async () => {
+    const token = app.request.getToken ? await app.request.getToken() : null;
+
     const reqParams = buildReqParams();
+
+    if (token) {
+      reqParams.headers = {
+        ...reqParams.headers,
+        Authorization: `Bearer ${token}`,
+      };
+    }
+
     uppy.setMeta({ ...reqParams.body });
     const xhrPlugin = uppy.getPlugin("XHRUpload");
     xhrPlugin.opts.method = reqParams.method;
