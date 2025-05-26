@@ -292,30 +292,32 @@ async function upload() {
   uploading.value = true;
 
   try {
-    const token = await app.requester.config.getToken();
+    app.requester.config.getToken().then((token) => {
+      if (token) {
+        const reqParams = buildReqParams();
 
-    const reqParams = buildReqParams();
+        // uppy.setMeta({ ...reqParams.body });
 
-    // uppy.setMeta({ ...reqParams.body });
+        const xhrPlugin = uppy.getPlugin("XHRUpload");
+        xhrPlugin.setOptions({
+          method: reqParams.method,
+          endpoint: reqParams.url + "?" + new URLSearchParams(reqParams.params),
+          headers: {
+            ...reqParams.headers,
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-    const xhrPlugin = uppy.getPlugin("XHRUpload");
-    xhrPlugin.setOptions({
-      method: reqParams.method,
-      endpoint: reqParams.url + "?" + new URLSearchParams(reqParams.params),
-      headers: {
-        ...reqParams.headers,
-        Authorization: `Bearer ${token}`,
-      },
+        pending.forEach((file) => {
+          file.percent = null;
+          file.status = QUEUE_ENTRY_STATUS.UPLOADING;
+          file.statusName = t("Pending upload");
+        });
+
+        uppy.retryAll();
+        uppy.upload();
+      }
     });
-
-    pending.forEach((file) => {
-      file.percent = null;
-      file.status = QUEUE_ENTRY_STATUS.UPLOADING;
-      file.statusName = t("Pending upload");
-    });
-
-    uppy.retryAll();
-    uppy.upload();
   } catch (err) {
     console.error("Error getting token:", err);
     message.value = t("Authorization error.");

@@ -2762,17 +2762,21 @@ const Bo = { render: ki }, xi = { class: "vuefinder__upload-modal__content" }, S
       }
       _.value = "", g.value = !0;
       try {
-        const H = await e.requester.config.getToken(), A = R();
-        S.getPlugin("XHRUpload").setOptions({
-          method: A.method,
-          endpoint: A.url + "?" + new URLSearchParams(A.params),
-          headers: {
-            ...A.headers,
-            Authorization: `Bearer ${H}`
+        e.requester.config.getToken().then((H) => {
+          if (H) {
+            const A = R();
+            S.getPlugin("XHRUpload").setOptions({
+              method: A.method,
+              endpoint: A.url + "?" + new URLSearchParams(A.params),
+              headers: {
+                ...A.headers,
+                Authorization: `Bearer ${H}`
+              }
+            }), M.forEach((P) => {
+              P.percent = null, P.status = o.UPLOADING, P.statusName = s("Pending upload");
+            }), S.retryAll(), S.upload();
           }
-        }), M.forEach((P) => {
-          P.percent = null, P.status = o.UPLOADING, P.statusName = s("Pending upload");
-        }), S.retryAll(), S.upload();
+        });
       } catch (H) {
         console.error("Error getting token:", H), _.value = s("Authorization error."), g.value = !1;
       }
