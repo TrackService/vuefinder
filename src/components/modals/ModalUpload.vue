@@ -425,17 +425,22 @@ onMounted(async () => {
     message.value = error.message;
   });
   uppy.on("upload", async () => {
-    const token = app.requester.config.getToken
-      ? await app.requester.config.getToken()
-      : null;
+    if (app.request.getToken) {
+      app.request
+        .getToken()
+        .then((token) => {
+          const reqParams = buildReqParams();
 
-    const reqParams = buildReqParams();
-
-    if (token) {
-      reqParams.headers = {
-        ...reqParams.headers,
-        Authorization: `Bearer ${token}`,
-      };
+          if (token) {
+            reqParams.headers = {
+              ...reqParams.headers,
+              Authorization: `Bearer ${token}`,
+            };
+          }
+        })
+        .catch((err) => {
+          console.error("Error getting token ", err);
+        });
     }
 
     uppy.setMeta({ ...reqParams.body });
