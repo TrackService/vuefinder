@@ -2855,7 +2855,6 @@ const Bo = { render: ki }, xi = { class: "vuefinder__upload-modal__content" }, S
       }), S.on("restriction-failed", (A, N) => {
         const P = h.value[O(A.id)];
         C(P), _.value = N.message;
-      }), S.on("upload", () => {
       }), S.on("upload-progress", (A, N) => {
         const P = Math.floor(N.bytesUploaded / N.bytesTotal * 100);
         h.value[O(A.id)].percent = `${P}%`;
