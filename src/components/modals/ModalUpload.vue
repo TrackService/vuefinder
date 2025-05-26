@@ -436,29 +436,29 @@ onMounted(async () => {
               ...reqParams.headers,
               Authorization: `Bearer ${token}`,
             };
+
+            uppy.setMeta({ ...reqParams.body });
+            const xhrPlugin = uppy.getPlugin("XHRUpload");
+            xhrPlugin.opts.method = reqParams.method;
+            xhrPlugin.opts.endpoint =
+              reqParams.url + "?" + new URLSearchParams(reqParams.params);
+            xhrPlugin.opts.headers = reqParams.headers;
+            delete reqParams.headers["Content-Type"];
+            uploading.value = true;
+            queue.value.forEach((file) => {
+              if (file.status === QUEUE_ENTRY_STATUS.DONE) {
+                return;
+              }
+              file.percent = null;
+              file.status = QUEUE_ENTRY_STATUS.UPLOADING;
+              file.statusName = t("Pending upload");
+            });
           }
         })
         .catch((err) => {
           console.error("Error getting token ", err);
         });
     }
-
-    uppy.setMeta({ ...reqParams.body });
-    const xhrPlugin = uppy.getPlugin("XHRUpload");
-    xhrPlugin.opts.method = reqParams.method;
-    xhrPlugin.opts.endpoint =
-      reqParams.url + "?" + new URLSearchParams(reqParams.params);
-    xhrPlugin.opts.headers = reqParams.headers;
-    delete reqParams.headers["Content-Type"];
-    uploading.value = true;
-    queue.value.forEach((file) => {
-      if (file.status === QUEUE_ENTRY_STATUS.DONE) {
-        return;
-      }
-      file.percent = null;
-      file.status = QUEUE_ENTRY_STATUS.UPLOADING;
-      file.statusName = t("Pending upload");
-    });
   });
   uppy.on("upload-progress", (upFile, progress) => {
     // upFile.progress.percentage never updates itself during this callback, and progress param definition showed
