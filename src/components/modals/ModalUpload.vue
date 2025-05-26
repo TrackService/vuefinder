@@ -280,38 +280,43 @@ async function upload() {
     return;
   }
 
-  const pending = queue.value.filter(
-    (entry) => entry.status !== QUEUE_ENTRY_STATUS.DONE
-  );
-  if (!pending.length) {
-    message.value = t("Please select file to upload first.");
-    return;
-  }
-
   message.value = "";
-  uploading.value = true;
 
   try {
     app.requester.config.getToken().then((token) => {
       if (token) {
         const reqParams = buildReqParams();
+        reqParams.headers = {
+          ...reqParams.headers,
+          Authorization: `Bearer ${token}`,
+        };
 
         uppy.setMeta({ ...reqParams.body });
 
         const xhrPlugin = uppy.getPlugin("XHRUpload");
-        xhrPlugin.setOptions({
-          method: reqParams.method,
-          endpoint: reqParams.url + "?" + new URLSearchParams(reqParams.params),
-          headers: {
-            ...reqParams.headers,
-            Authorization: `Bearer ${token}`,
-          },
-          formData: true,
-          fieldName: "file",
-          metaFields: ["name", "type", "file"],
-        });
+        xhrPlugin.opts.method = reqParams.method;
+        xhrPlugin.opts.endpoint =
+          reqParams.url + "?" + new URLSearchParams(reqParams.params);
+        xhrPlugin.opts.headers = reqParams.headers;
+        delete reqParams.headers["Content-Type"];
+        uploading.value = true;
 
-        pending.forEach((file) => {
+        // xhrPlugin.setOptions({
+        //   method: reqParams.method,
+        //   endpoint: reqParams.url + "?" + new URLSearchParams(reqParams.params),
+        //   headers: {
+        //     ...reqParams.headers,
+        //     Authorization: `Bearer ${token}`,
+        //   },
+        //   formData: true,
+        //   fieldName: "file",
+        //   metaFields: ["name", "type", "file"],
+        // });
+
+        queue.value.forEach((file) => {
+          if (file.status === QUEUE_ENTRY_STATUS.DONE) {
+            return;
+          }
           file.percent = null;
           file.status = QUEUE_ENTRY_STATUS.UPLOADING;
           file.statusName = t("Pending upload");
