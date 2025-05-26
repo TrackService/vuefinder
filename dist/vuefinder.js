@@ -2834,7 +2834,7 @@ const Bo = { render: ki }, xi = { class: "vuefinder__upload-modal__content" }, S
         const j = h.value[O(M.id)];
         C(j), _.value = H.message;
       }), S.on("upload", async () => {
-        e.request.getToken && e.request.getToken().then((H) => {
+        e.requester.config.getToken && e.requester.config.getToken().then((H) => {
           const j = R();
           H && (j.headers = {
             ...j.headers,
