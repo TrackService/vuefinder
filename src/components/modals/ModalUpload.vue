@@ -279,7 +279,17 @@ async function upload() {
     message.value = t("Please select file to upload first.");
     return;
   }
+
+  const pending = queue.value.filter(
+    (entry) => entry.status !== QUEUE_ENTRY_STATUS.DONE
+  );
+  if (!pending.length) {
+    message.value = t("Please select file to upload first.");
+    return;
+  }
+
   message.value = "";
+  uploading.value = true;
 
   try {
     const token = await app.requester.config.getToken();
