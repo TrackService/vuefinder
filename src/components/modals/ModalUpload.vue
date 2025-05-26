@@ -158,6 +158,8 @@ const { t } = app.i18n;
 
 const uppyLocale = t("uppy");
 
+const token = ref("");
+
 const QUEUE_ENTRY_STATUS = {
   PENDING: 0,
   CANCELED: 1,
@@ -351,13 +353,13 @@ function close() {
 // }
 
 async function buildReqParams() {
-  const token = await authStore.getAccessToken(); // получаем токен
+  // получаем токен
 
   return {
     url: import.meta.env.VITE_API_URL + "/v1/filemanager",
     method: "POST",
     headers: {
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...(token.value ? { Authorization: `Bearer ${token.value}` } : {}),
     },
     params: {
       q: "upload",
@@ -371,6 +373,8 @@ async function buildReqParams() {
 }
 
 onMounted(async () => {
+  token = await authStore.getAccessToken();
+
   uppy = new Uppy({
     debug: app.debug,
     restrictions: {
