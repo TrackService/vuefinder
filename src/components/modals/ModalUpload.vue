@@ -296,7 +296,7 @@ async function upload() {
       if (token) {
         const reqParams = buildReqParams();
 
-        // uppy.setMeta({ ...reqParams.body });
+        uppy.setMeta({ ...reqParams.body });
 
         const xhrPlugin = uppy.getPlugin("XHRUpload");
         xhrPlugin.setOptions({
@@ -308,7 +308,7 @@ async function upload() {
           },
           formData: true,
           fieldName: "file",
-          metaFields: [],
+          metaFields: ["name", "type", "file"],
         });
 
         pending.forEach((file) => {

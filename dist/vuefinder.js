@@ -2765,7 +2765,7 @@ const Bo = { render: ki }, xi = { class: "vuefinder__upload-modal__content" }, S
         e.requester.config.getToken().then((H) => {
           if (H) {
             const A = R();
-            S.getPlugin("XHRUpload").setOptions({
+            S.setMeta({ ...A.body }), S.getPlugin("XHRUpload").setOptions({
               method: A.method,
               endpoint: A.url + "?" + new URLSearchParams(A.params),
               headers: {
@@ -2774,7 +2774,7 @@ const Bo = { render: ki }, xi = { class: "vuefinder__upload-modal__content" }, S
               },
               formData: !0,
               fieldName: "file",
-              metaFields: []
+              metaFields: ["name", "type", "file"]
             }), M.forEach((P) => {
               P.percent = null, P.status = o.UPLOADING, P.statusName = s("Pending upload");
             }), S.retryAll(), S.upload();
