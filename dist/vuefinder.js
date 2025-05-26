@@ -2834,7 +2834,7 @@ const Bo = { render: ki }, xi = { class: "vuefinder__upload-modal__content" }, S
         const P = h.value[O(M.id)];
         C(P), _.value = B.message;
       }), S.on("upload", async () => {
-        const M = e.requester.getToken ? await e.requester.getToken() : null, B = R();
+        const M = e.requester.config.getToken ? await e.requester.config.getToken() : null, B = R();
         M && (B.headers = {
           ...B.headers,
           Authorization: `Bearer ${M}`
