@@ -268,7 +268,7 @@ function openFileSelector() {
 /**
  * Begin upload
  */
-function upload() {
+async function upload() {
   if (uploading.value) {
     return;
   }
@@ -280,8 +280,37 @@ function upload() {
     return;
   }
   message.value = "";
-  uppy.retryAll();
-  uppy.upload();
+
+  try {
+    const token = await app.requester.config.getToken();
+
+    const reqParams = buildReqParams();
+
+    uppy.setMeta({ ...reqParams.body });
+
+    const xhrPlugin = uppy.getPlugin("XHRUpload");
+    xhrPlugin.setOptions({
+      method: reqParams.method,
+      endpoint: reqParams.url + "?" + new URLSearchParams(reqParams.params),
+      headers: {
+        ...reqParams.headers,
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    pending.forEach((file) => {
+      file.percent = null;
+      file.status = QUEUE_ENTRY_STATUS.UPLOADING;
+      file.statusName = t("Pending upload");
+    });
+
+    uppy.retryAll();
+    uppy.upload();
+  } catch (err) {
+    console.error("Error getting token:", err);
+    message.value = t("Authorization error.");
+    uploading.value = false;
+  }
 }
 
 /**
@@ -424,76 +453,39 @@ onMounted(async () => {
     remove(entry);
     message.value = error.message;
   });
-  // uppy.on("upload", async() => {
-  //   const reqParams = buildReqParams();
-
-  //   if (app.requester.config.getToken) {
-  //     app.requester.config
-  //       .getToken()
-  //       .then((token) => {
-  //         if (token) {
-  //           reqParams.headers = {
-  //             ...reqParams.headers,
-  //             Authorization: `Bearer ${token}`,
-  //           };
-
-  //           uppy.setMeta({ ...reqParams.body });
-  //           const xhrPlugin = uppy.getPlugin("XHRUpload");
-  //           xhrPlugin.opts.method = reqParams.method;
-  //           xhrPlugin.opts.endpoint =
-  //             reqParams.url + "?" + new URLSearchParams(reqParams.params);
-  //           xhrPlugin.opts.headers = reqParams.headers;
-  //           delete reqParams.headers["Content-Type"];
-  //           uploading.value = true;
-  //           queue.value.forEach((file) => {
-  //             if (file.status === QUEUE_ENTRY_STATUS.DONE) {
-  //               return;
-  //             }
-  //             file.percent = null;
-  //             file.status = QUEUE_ENTRY_STATUS.UPLOADING;
-  //             file.statusName = t("Pending upload");
-  //           });
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         console.error("Error getting token ", err);
-  //       });
-  //   }
-  // });
-
-  uppy.on("upload", async () => {
-    uploading.value = true;
-
-    queue.value.forEach((file) => {
-      if (file.status === QUEUE_ENTRY_STATUS.DONE) return;
-      file.percent = null;
-      file.status = QUEUE_ENTRY_STATUS.UPLOADING;
-      file.statusName = t("Pending upload");
-    });
-
-    try {
-      const token = await app.requester.config.getToken();
-      const reqParams = buildReqParams();
-
-      uppy.setMeta({ ...reqParams.body });
-
-      const xhrPlugin = uppy.getPlugin("XHRUpload");
-
-      uppy.on("upload-before-send", (file, xhrOptions) => {
-        xhrOptions.endpoint =
-          reqParams.url + "?" + new URLSearchParams(reqParams.params);
-        xhrOptions.method = reqParams.method;
-        xhrOptions.headers = {
-          ...reqParams.headers,
-          Authorization: `Bearer ${token}`,
-        };
-      });
-    } catch (err) {
-      console.error("Error getting token:", err);
-      message.value = t("Authorization error.");
-      uploading.value = false;
-      uppy.cancelAll();
-    }
+  uppy.on("upload", () => {
+    // const reqParams = buildReqParams();
+    // if (app.requester.config.getToken) {
+    //   app.requester.config
+    //     .getToken()
+    //     .then((token) => {
+    //       if (token) {
+    //         reqParams.headers = {
+    //           ...reqParams.headers,
+    //           Authorization: `Bearer ${token}`,
+    //         };
+    //         uppy.setMeta({ ...reqParams.body });
+    //         const xhrPlugin = uppy.getPlugin("XHRUpload");
+    //         xhrPlugin.opts.method = reqParams.method;
+    //         xhrPlugin.opts.endpoint =
+    //           reqParams.url + "?" + new URLSearchParams(reqParams.params);
+    //         xhrPlugin.opts.headers = reqParams.headers;
+    //         delete reqParams.headers["Content-Type"];
+    //         uploading.value = true;
+    //         queue.value.forEach((file) => {
+    //           if (file.status === QUEUE_ENTRY_STATUS.DONE) {
+    //             return;
+    //           }
+    //           file.percent = null;
+    //           file.status = QUEUE_ENTRY_STATUS.UPLOADING;
+    //           file.statusName = t("Pending upload");
+    //         });
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       console.error("Error getting token ", err);
+    //     });
+    // }
   });
 
   uppy.on("upload-progress", (upFile, progress) => {
