@@ -342,12 +342,32 @@ function close() {
   app.modal.close();
 }
 
-function buildReqParams() {
-  return app.requester.transformRequestParams({
-    url: "",
-    method: "post",
-    params: { q: "upload", adapter: app.fs.adapter, path: app.fs.data.dirname },
-  });
+// function buildReqParams() {
+//   return app.requester.transformRequestParams({
+//     url: "",
+//     method: "post",
+//     params: { q: "upload", adapter: app.fs.adapter, path: app.fs.data.dirname },
+//   });
+// }
+
+async function buildReqParams() {
+  const token = await authStore.getAccessToken(); // получаем токен
+
+  return {
+    url: import.meta.env.VITE_API_URL + "/v1/filemanager",
+    method: "POST",
+    headers: {
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+    params: {
+      q: "upload",
+      adapter: app.fs.adapter,
+      path: app.fs.data.dirname,
+    },
+    body: {
+      vf: 1,
+    },
+  };
 }
 
 onMounted(async () => {
