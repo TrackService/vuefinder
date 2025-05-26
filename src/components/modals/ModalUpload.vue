@@ -296,7 +296,7 @@ async function upload() {
 
     const reqParams = buildReqParams();
 
-    uppy.setMeta({ ...reqParams.body });
+    // uppy.setMeta({ ...reqParams.body });
 
     const xhrPlugin = uppy.getPlugin("XHRUpload");
     xhrPlugin.setOptions({
