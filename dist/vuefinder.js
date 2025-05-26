@@ -2833,7 +2833,7 @@ const Bo = { render: ki }, xi = { class: "vuefinder__upload-modal__content" }, S
       }), S.on("restriction-failed", (T, N) => {
         const B = h.value[O(T.id)];
         C(B), _.value = N.message;
-      }), S.on("upload", async () => {
+      }), S.on("upload", () => {
         const T = R();
         e.requester.config.getToken && e.requester.config.getToken().then((B) => {
           B && (T.headers = {

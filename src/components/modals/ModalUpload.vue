@@ -424,7 +424,7 @@ onMounted(async () => {
     remove(entry);
     message.value = error.message;
   });
-  uppy.on("upload", async () => {
+  uppy.on("upload", () => {
     const reqParams = buildReqParams();
 
     if (app.requester.config.getToken) {
