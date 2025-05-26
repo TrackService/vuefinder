@@ -306,6 +306,9 @@ async function upload() {
             ...reqParams.headers,
             Authorization: `Bearer ${token}`,
           },
+          formData: true,
+          fieldName: "file",
+          metaFields: [],
         });
 
         pending.forEach((file) => {
